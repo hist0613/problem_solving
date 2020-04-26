@@ -1,0 +1,28 @@
+# Definition for a binary tree node.
+# class TreeNode:
+#     def __init__(self, x):
+#         self.val = x
+#         self.left = None
+#         self.right = None
+
+class Solution:
+    def traverse(self, merged: TreeNode, source: TreeNode):
+        if source is None:
+            return
+        
+        merged.val += source.val
+        if source.left:
+            if merged.left is None: merged.left = TreeNode(0)
+            self.traverse(merged.left, source.left)
+        if source.right:
+            if merged.right is None: merged.right = TreeNode(0)
+            self.traverse(merged.right, source.right)
+    
+    def mergeTrees(self, t1: TreeNode, t2: TreeNode) -> TreeNode:
+        if t1 is None and t2 is None:
+            return None
+        self.merged = TreeNode(0)
+        self.traverse(self.merged, t1)
+        self.traverse(self.merged, t2)
+        return self.merged
+            
